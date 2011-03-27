@@ -1,25 +1,22 @@
-node-xml2js
+commonjs-xml2js
 ===========
 
 Description
 -----------
-Simple XML to JavaScript object converter.  Uses [sax-js](http://github.com/isaacs/sax-js/).  Install with [npm](http://github.com/isaacs/npm) :)
-See the tests for examples until docs are written.
+Simple XML to JavaScript object converter. This fork is modified to run in any CommonJS environment (not just Node). Uses [sax-js](http://github.com/isaacs/sax-js/). 
+
 Note:  If you're looking for a full DOM parser, you probably want [JSDom](http://github.com/tmpvar/jsdom).
 
 Simple usage
 -----------
 
-    var sys = require('sys'),
-        fs = require('fs'),
-        xml2js = require('xml2js');
+    var xml2js = require('./xml2js');
 
-    var parser = new xml2js.Parser();
-    parser.addListener('end', function(result) {
-        console.log(sys.inspect(result));
-        console.log('Done.');
+    var parser = new xml2js.Parser(function(data) {
+      console.log(JSON.stringify(data));
     });
-    fs.readFile(__dirname + '/foo.xml', function(err, data) {
-        parser.parseString(data);
-    });
+
+    parser.parseString("<some xml>")
+
+
 
